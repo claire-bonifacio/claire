@@ -1,0 +1,167 @@
+/* Gallery Section Styles */
+.gallery_section {
+    width: 100%;
+    min-height: 100vh;
+    padding: 160px 2rem 5rem 2rem; 
+    background-image: url("img/BG.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.gallery_header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.gallery_header h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 3rem;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+}
+
+.divider {
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Main Grid Configuration (Top-level Categories) */
+.gallery_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.gallery_item {
+    background-color: var(--soft-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s ease;
+    cursor: pointer;
+}
+
+.gallery_item:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.image_wrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.image_wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item_info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* --- CATEGORY EXPANSION --- */
+.category_expansion {
+    grid-column: 1 / -1; 
+    display: none; 
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    position: relative; 
+    margin-top: 20px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.category_expansion.open {
+    display: block; 
+    animation: fadeInExpansion 0.5s ease-out;
+}
+
+@keyframes fadeInExpansion {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- DYNAMIC GRID (One Column on Mobile) --- */
+.expansion_grid {
+    display: grid;
+    /* Desktop: Images try to stay at least 300px wide */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 25px;
+    padding: 40px;
+    overflow: hidden; 
+}
+
+.expansion_grid img {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    
+    /* PROTECTION: Prevents saving/dragging */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.expansion_grid img:hover {
+    transform: scale(1.02);
+}
+
+/* --- FLOATING STICKY CLOSE BUTTON --- */
+.close_button {
+    position: -webkit-sticky; 
+    position: sticky;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: block; 
+    width: fit-content;
+    padding: 12px 30px;
+    background-color: var(--text-main);
+    color: white;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: 20px auto 40px auto; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.close_button:hover {
+    background-color: var(--accent);
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 1024px) {
+    .gallery_grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .gallery_grid { grid-template-columns: 1fr; }
+    .expansion_grid { 
+        /* By setting min width to 280px, it forces 1 column on most phones */
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        padding: 20px;
+        gap: 20px;
+    }
+}

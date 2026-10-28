@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Clarissa I. Bonifacio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div id="pageLoader" class="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar_links">
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+        </div>
+    </div>
+
+    <section class="gallery_section">
+        <div class="gallery_header">
+            <h2>Memories We Cherish</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="gallery_grid">
+            <div class="gallery_item" onclick="toggleCategory('travels')">
+                <div class="image_wrapper"><img src="Travels/Beijing/b6.jpg" alt="Travels"></div>
+                <div class="item_info"><h3>Travels</h3></div>
+            </div>
+
+            <div class="gallery_item" onclick="toggleCategory('family')">
+                <div class="image_wrapper"><img src="img/Fam1.jpg" alt="Family"></div>
+                <div class="item_info"><h3>Family</h3></div>
+            </div>
+
+            <div class="gallery_item" onclick="toggleCategory('solo')">
+                <div class="image_wrapper"><img src="img/intro1.jpg" alt="Portraits"></div>
+                <div class="item_info"><h3>Portraits</h3></div>
+            </div>
+
+            <div id="travels-expansion" class="category_expansion">
+                <div class="expansion_grid" id="travels-grid"></div>
+                <div class="close_button" onclick="toggleCategory('travels')">Close Travels &times;</div>
+            </div>
+
+            <div id="family-expansion" class="category_expansion">
+                <div class="expansion_grid" id="family-grid"></div>
+                <div class="close_button" onclick="toggleCategory('family')">Close Family &times;</div>
+            </div>
+
+            <div id="solo-expansion" class="category_expansion">
+                <div class="expansion_grid" id="solo-grid"></div>
+                <div class="close_button" onclick="toggleCategory('solo')">Close Portraits &times;</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+</html>
