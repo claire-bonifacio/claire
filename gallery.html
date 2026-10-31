@@ -3,60 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Clarissa I. Bonifacio</title>
+    <title>Clarissa I. Bonifacio — Gallery</title>
+    <meta name="description" content="Photographs celebrating the life of Clarissa I. Bonifacio.">
+    <meta property="og:title" content="Clarissa I. Bonifacio — Gallery">
+    <meta property="og:description" content="Photographs celebrating the life of Clarissa I. Bonifacio.">
+    <meta name="theme-color" content="#FAF9F6">
+
+    <!-- Favicons: tight face crop so it stays recognizable at tiny sizes -->
+    <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+    <!-- Share preview. IMPORTANT: replace https://YOUR-SITE-URL with your real
+         site address (no trailing slash). Messaging apps require a full URL here. -->
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://YOUR-SITE-URL/img/share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts load without blocking the page from drawing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="gallery.css">
 </head>
 <body>
-    <div id="pageLoader" class="page-loader">
-        <div class="spinner"></div>
-    </div>
-
-    <div class="navbar">
-        <div class="navbar_links">
+    <a class="skip_link" href="#main">Skip to content</a>
+    <header class="navbar">
+        <a href="index.html" class="navbar_brand">Clarissa I. Bonifacio</a>
+        <nav class="navbar_links" aria-label="Main">
             <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a>
+            <a href="gallery.html" aria-current="page">Gallery</a>
+        </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+        <section class="gallery_section">
+            <div class="gallery_header">
+                <h1>Memories We Cherish</h1>
+                <div class="divider"></div>
+            </div>
+
+            <div class="gallery_grid">
+                <a class="gallery_item" href="#travels" data-category="travels">
+                    <div class="image_wrapper"><img src="thumbs/Travels/Beijing/b6.webp" alt=""></div>
+                    <div class="item_info"><h2>Travels</h2><span class="item_cta">View album →</span></div>
+                </a>
+
+                <a class="gallery_item" href="#family" data-category="family">
+                    <div class="image_wrapper"><img src="thumbs/img/Fam1.webp" alt=""></div>
+                    <div class="item_info"><h2>Family</h2><span class="item_cta">View album →</span></div>
+                </a>
+
+                <a class="gallery_item" href="#solo" data-category="solo">
+                    <div class="image_wrapper"><img src="thumbs/img/portrait.webp" alt="" style="object-position: center 25%;"></div>
+                    <div class="item_info"><h2>Portraits</h2><span class="item_cta">View album →</span></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site_footer">
+        <p>Clarissa I. Bonifacio</p>
+        <span class="footer_dates">1971 — 2025</span>
+    </footer>
+
+    <div id="album" class="album" role="dialog" aria-modal="true" aria-label="Photo album" hidden>
+        <div class="album_bar">
+            <button type="button" class="album_back" aria-label="Back to gallery"><span aria-hidden="true">←</span><span class="album_back_label"> Gallery</span></button>
+            <nav class="album_tabs" aria-label="Albums">
+                <button type="button" data-category="travels">Travels</button>
+                <button type="button" data-category="family">Family</button>
+                <button type="button" data-category="solo">Portraits</button>
+            </nav>
         </div>
+        <div class="album_body" id="album-body"></div>
     </div>
 
-    <section class="gallery_section">
-        <div class="gallery_header">
-            <h2>Memories We Cherish</h2>
-            <div class="divider"></div>
-        </div>
-
-        <div class="gallery_grid">
-            <div class="gallery_item" onclick="toggleCategory('travels')">
-                <div class="image_wrapper"><img src="Travels/Beijing/b6.jpg" alt="Travels"></div>
-                <div class="item_info"><h3>Travels</h3></div>
-            </div>
-
-            <div class="gallery_item" onclick="toggleCategory('family')">
-                <div class="image_wrapper"><img src="img/Fam1.jpg" alt="Family"></div>
-                <div class="item_info"><h3>Family</h3></div>
-            </div>
-
-            <div class="gallery_item" onclick="toggleCategory('solo')">
-                <div class="image_wrapper"><img src="img/intro1.jpg" alt="Portraits"></div>
-                <div class="item_info"><h3>Portraits</h3></div>
-            </div>
-
-            <div id="travels-expansion" class="category_expansion">
-                <div class="expansion_grid" id="travels-grid"></div>
-                <div class="close_button" onclick="toggleCategory('travels')">Close Travels &times;</div>
-            </div>
-
-            <div id="family-expansion" class="category_expansion">
-                <div class="expansion_grid" id="family-grid"></div>
-                <div class="close_button" onclick="toggleCategory('family')">Close Family &times;</div>
-            </div>
-
-            <div id="solo-expansion" class="category_expansion">
-                <div class="expansion_grid" id="solo-grid"></div>
-                <div class="close_button" onclick="toggleCategory('solo')">Close Portraits &times;</div>
-            </div>
-        </div>
-    </section>
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo viewer">
+        <button class="lb_btn lb_close" aria-label="Close photo">×</button>
+        <button class="lb_btn lb_prev" aria-label="Previous photo">‹</button>
+        <img class="lb_img" src="" alt="">
+        <button class="lb_btn lb_next" aria-label="Next photo">›</button>
+        <p class="lb_caption"></p>
+        <div class="lb_count"></div>
+    </div>
 
     <script src="main.js"></script>
 </body>

@@ -3,49 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>In Loving Memory | Claire</title>
+    <title>Clarissa I. Bonifacio — In Loving Memory</title>
+    <meta name="description" content="In loving memory of Clarissa I. Bonifacio, February 18, 1971 – May 15, 2025.">
+    <meta property="og:title" content="Clarissa I. Bonifacio — In Loving Memory">
+    <meta property="og:description" content="February 18, 1971 – May 15, 2025.">
+    <meta name="theme-color" content="#FAF9F6">
+
+    <!-- Favicons: tight face crop so it stays recognizable at tiny sizes -->
+    <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+    <!-- Share preview. IMPORTANT: replace https://YOUR-SITE-URL with your real
+         site address (no trailing slash). Messaging apps require a full URL here. -->
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://YOUR-SITE-URL/img/share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts load without blocking the page from drawing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="pageLoader" class="page-loader">
-        <div class="spinner"></div>
-    </div>
-
-    <div class="navbar">
-        <div class="navbar_links">
-            <a href="index.html">Home</a>
+    <a class="skip_link" href="#main">Skip to content</a>
+    <header class="navbar">
+        <a href="index.html" class="navbar_brand">Clarissa I. Bonifacio</a>
+        <nav class="navbar_links" aria-label="Main">
+            <a href="index.html" aria-current="page">Home</a>
             <a href="gallery.html">Gallery</a>
-        </div>
-    </div>
+        </nav>
+    </header>
 
-    <!-- Main Content -->
-    <div class="hero">
-        <div class="hero_left">
-            <div class="left_content">
-                <div class="left_name">
-                    <h2>Clarissa I. Bonifacio</h2>
-                </div>
-                <div class="left_date">
-                    <p>02/18/1971 – 05/15/2025</p>
-                </div>
-                <div class="left_quote">
-                    <p>“That whoever believeth in him should not perish, but have eternal life.” - John 3:15</p>
-                </div>
+    <main class="hero" id="main" tabindex="-1">
+        <div class="hero_content">
+            <div class="left_portrait">
+                <img src="img/portrait.jpg" width="760" height="950" alt="Portrait of Clarissa I. Bonifacio">
+            </div>
+
+            <div class="left_name">
+                <h1>Clarissa I. Bonifacio</h1>
+            </div>
+
+            <div class="left_date">
+                <p>February 18, 1971 — May 15, 2025</p>
+            </div>
+
+            <div class="left_quote">
+                <p>“That whosoever believeth in him should not perish, but have eternal life.”</p>
+                <span class="verse_ref">John 3:15 (KJV)</span>
+                <div class="verse_divider"></div>
             </div>
         </div>
+
         <div class="hero_right">
+            <p class="video_label">A Celebration of Life</p>
             <div class="hero_img">
-                <iframe src="https://drive.google.com/file/d/13i_AOcPkfMeSn-RPLzX9RVYYVaGXNLbG/preview"
-                        width="640" 
-                        height="480" 
-                        frameborder="0" 
-                        allow="autoplay; encrypted-media" 
+                <iframe loading="lazy" src="https://drive.google.com/file/d/13i_AOcPkfMeSn-RPLzX9RVYYVaGXNLbG/preview"
+                        allow="autoplay; encrypted-media"
                         allowfullscreen
-                        title="Memorial Video">
+                        title="A Celebration of Life — memorial video">
                 </iframe>
             </div>
         </div>
-    </div>
+
+        <a class="gallery_link" href="gallery.html">View photographs <span aria-hidden="true">→</span></a>
+    </main>
+
+    <footer class="site_footer">
+        <p>Clarissa I. Bonifacio</p>
+        <span class="footer_dates">1971 — 2025</span>
+    </footer>
 
     <script src="main.js"></script>
 </body>

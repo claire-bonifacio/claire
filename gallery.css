@@ -1,57 +1,61 @@
-/* Gallery Section Styles */
 .gallery_section {
     width: 100%;
-    min-height: 100vh;
-    padding: 160px 2rem 5rem 2rem; 
-    background-image: url("img/BG.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem 1.5rem; 
+    background-color: var(--bg-ivory);
 }
 
 .gallery_header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
 }
 
-.gallery_header h2 {
-    font-family: 'Libre Baskerville', serif;
+.gallery_header h1 {
+    font-family: var(--serif);
     font-size: 3rem;
-    color: var(--text-main);
-    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
 }
 
 .divider {
-    width: 80px;
-    height: 3px;
-    background-color: var(--accent);
+    width: 50px;
+    height: 1px;
+    background-color: var(--accent-brass);
     margin: 0 auto;
-    border-radius: 2px;
 }
 
-/* Main Grid Configuration (Top-level Categories) */
+/* Category cards: each one opens a full-screen album */
 .gallery_grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
     padding: 0 1rem;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     align-items: start;
 }
 
 .gallery_item {
-    background-color: var(--soft-bg);
-    border-radius: 16px;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    background-color: var(--surface-stone);
+    border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.35s ease;
-    cursor: pointer;
+    border: 1px solid var(--border-hairline);
+    transition: border-color 0.2s ease;
 }
 
-.gallery_item:hover {
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);
+.gallery_item:hover,
+.gallery_item:focus-visible {
+    border-color: var(--accent-forest);
+}
+
+.gallery_item:focus-visible {
+    outline: 2px solid var(--accent-forest);
+    outline-offset: 3px;
 }
 
 .image_wrapper {
@@ -61,107 +65,337 @@
 }
 
 .image_wrapper img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery_item:hover .image_wrapper img,
+.gallery_item:focus-visible .image_wrapper img {
+    transform: scale(1.04);
 }
 
 .item_info {
-    padding: 1.5rem;
+    padding: 1.25rem 1.5rem 1.4rem;
     text-align: center;
 }
 
-/* --- CATEGORY EXPANSION --- */
-.category_expansion {
-    grid-column: 1 / -1; 
-    display: none; 
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    position: relative; 
-    margin-top: 20px;
-    margin-bottom: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+.item_info h2 {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
 }
 
-.category_expansion.open {
-    display: block; 
-    animation: fadeInExpansion 0.5s ease-out;
+.item_cta {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 1.02rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-brass-text);
+    transition: color 0.2s ease;
 }
 
-@keyframes fadeInExpansion {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.gallery_item:hover .item_cta,
+.gallery_item:focus-visible .item_cta {
+    color: var(--accent-forest);
 }
 
-/* --- DYNAMIC GRID (One Column on Mobile) --- */
-.expansion_grid {
+/* --- ALBUM (full-screen pop-up) --- */
+.album {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-ivory);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.album[hidden] { display: none; }
+
+.album.open {
+    animation: albumIn 0.28s ease-out;
+}
+
+@keyframes albumIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.album_bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     display: grid;
-    /* Desktop: Images try to stay at least 300px wide */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-    gap: 25px;
-    padding: 40px;
-    overflow: hidden; 
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 2rem;
+    background: var(--bg-ivory);
+    border-bottom: 1px solid var(--border-hairline);
 }
 
-.expansion_grid img {
+.album_back {
+    justify-self: start;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: none;
+    border: 1px solid var(--border-hairline);
+    border-radius: 4px;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.album_back:hover {
+    color: var(--accent-forest);
+    border-color: var(--accent-forest);
+}
+
+.album_tabs {
+    display: flex;
+    gap: 1.9rem;
+}
+
+.album_tabs button {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 0.3rem 0.1rem;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.album_tabs button:hover {
+    color: var(--accent-forest);
+}
+
+.album_tabs button[aria-current="true"] {
+    color: var(--accent-forest);
+    font-weight: 600;
+    border-bottom-color: var(--accent-forest);
+}
+
+.album_back:focus-visible,
+.album_tabs button:focus-visible,
+.place_nav button:focus-visible,
+.photo_row img:focus-visible {
+    outline: 2px solid var(--accent-forest);
+    outline-offset: 3px;
+}
+
+.album_body {
     width: 100%;
-    aspect-ratio: 1 / 1; 
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2.25rem 1.5rem 5rem;
+    flex: 1;
+}
+
+.album_panel[hidden] { display: none; }
+
+/* Each album sets the target row height for its photos */
+.album_panel { --row-h: 280px; }
+.album_panel[data-category="solo"] { --row-h: 360px; }
+
+/* Jump-to buttons (albums with several places) */
+.place_nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2.25rem;
+}
+
+.place_nav button {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface-stone);
+    border: 1px solid var(--border-hairline);
+    border-radius: 4px;
+    padding: 0.35rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.place_nav button:hover {
+    color: var(--accent-forest);
+    border-color: var(--accent-forest);
+}
+
+.place_section {
+    scroll-margin-top: 5.5rem;
+}
+
+.place_section + .place_section {
+    margin-top: 3rem;
+}
+
+.place_heading {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-hairline);
+}
+
+/* Rows of equal height: every photo keeps its real proportions, rows fill
+   the full width, and nothing is cropped. */
+.photo_row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* Stops the last row from stretching its photos to fill the width */
+.photo_row::after {
+    content: '';
+    flex-grow: 1000000;
+}
+
+.photo_row img {
+    display: block;
+    height: auto;
+    min-width: 0;
+    flex-shrink: 1;
+    flex-basis: calc(var(--r) * var(--row-h));
+    aspect-ratio: var(--r);
+    border-radius: 4px;
+    border: 1px solid var(--border-hairline);
+    background: var(--surface-stone);
+    transition: opacity 0.2s ease;
+
     /* PROTECTION: Prevents saving/dragging */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
+    cursor: zoom-in;
 }
 
-.expansion_grid img:hover {
-    transform: scale(1.02);
+.photo_row img:hover {
+    opacity: 0.92;
 }
 
-/* --- FLOATING STICKY CLOSE BUTTON --- */
-.close_button {
-    position: -webkit-sticky; 
-    position: sticky;
-    bottom: 30px; 
+/* --- LIGHTBOX --- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-surface);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lb_img {
+    max-width: min(92vw, 1100px);
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.lb_btn {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    color: #FAF9F6;
+    border: 1px solid var(--border-hairline);
+    border-radius: 4px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.lb_btn:hover { background: rgba(255, 255, 255, 0.18); }
+
+.lb_close { top: 20px; right: 20px; }
+.lb_prev  { left: 20px; top: 50%; transform: translateY(-50%); }
+.lb_next  { right: 20px; top: 50%; transform: translateY(-50%); }
+
+.lb_caption {
+    position: absolute;
+    bottom: 46px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
-    display: block; 
-    width: fit-content;
-    padding: 12px 30px;
-    background-color: var(--text-main);
-    color: white;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 0.9rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    margin: 20px auto 40px auto; 
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 90vw;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: #FAF9F6;
 }
 
-.close_button:hover {
-    background-color: var(--accent);
-    transform: translateX(-50%) scale(1.05);
+.lb_caption:empty { display: none; }
+
+.lb_count {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--border-hairline);
+    letter-spacing: 0.05rem;
 }
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1024px) {
-    .gallery_grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .album_panel { --row-h: 220px; }
+    .album_panel[data-category="solo"] { --row-h: 270px; }
 }
 
 @media (max-width: 768px) {
-    .gallery_grid { grid-template-columns: 1fr; }
-    .expansion_grid { 
-        /* By setting min width to 280px, it forces 1 column on most phones */
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        padding: 20px;
-        gap: 20px;
-    }
+    .gallery_grid { grid-template-columns: minmax(0, 1fr); }
+    .gallery_header h1 { font-size: 2.4rem; }
+    .album_bar { padding: 0.75rem 1rem; }
+    .album_body { padding: 1.5rem 1rem 4rem; }
+    .photo_row { gap: 10px; }
+    .album_panel { --row-h: 200px; }
+    .album_panel[data-category="solo"] { --row-h: 240px; }
+}
+
+@media (max-width: 560px) {
+    /* One row: arrow-only back button + album tabs */
+    .album_bar { grid-template-columns: auto 1fr; gap: 0.5rem; }
+    .album_back { padding: 0.35rem 0.7rem; }
+    .album_back_label { display: none; }
+    .album_tabs { justify-content: center; gap: 1.1rem; }
+    .album_tabs button { font-size: 1.12rem; }
+    .place_heading { font-size: 1.45rem; }
+
+    /* Aim high so photos mostly sit one per row, as large as the screen allows */
+    .album_panel,
+    .album_panel[data-category="solo"] { --row-h: 320px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .album.open,
+    .lightbox.open { animation: none; }
+    .image_wrapper img,
+    .gallery_item:hover .image_wrapper img { transition: none; transform: none; }
 }
